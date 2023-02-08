@@ -14,6 +14,7 @@ specifiers:
   eslint-plugin-react: ^7.32.2
   eslint-plugin-simple-import-sort: ^10.0.0
   eslint-plugin-tailwindcss: ^3.8.3
+  lucide-react: ^0.112.0
   postcss: ^8.4.21
   prettier: ^2.8.3
   react: ^18.2.0
@@ -24,6 +25,7 @@ specifiers:
   vite: ^4.1.0
 
 dependencies:
+  lucide-react: 0.112.0_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.8.0_biqbaboplfbrettd7655fr4n2y
@@ -1762,6 +1764,14 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lucide-react/0.112.0_react@18.2.0:
+    resolution: {integrity: sha512-+glJwNv7bv6I6WOb8RRbaVHJdaoaV/KWV44ag/EpAoSsWxSUML5RP8hA+9O188RoEv9ZFMx1l+7HPwTDnt0L/Q==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}

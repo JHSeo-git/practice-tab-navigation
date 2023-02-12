@@ -55,8 +55,8 @@ export function DynamicRoutes() {
   const { currentRoute, routes } = useRouteContext();
   const onlyOne = routes.length === 1;
 
-  if (!currentRoute) {
-    return notFoundRoute.element;
+  if (routes.length === 0) {
+    return <>{notFoundRoute.element}</>;
   }
 
   return (

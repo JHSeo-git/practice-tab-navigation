@@ -8,7 +8,7 @@ export function SiteHeader() {
         <div className="flex">
           <Link to="/" className="mr-6 flex items-center space-x-2">
             <Paperclip className="h-6 w-6 text-slate-700" />
-            <span className="inline-block font-bold">router/tab</span>
+            <span className="inline-block font-bold">router / tab</span>
           </Link>
           <nav className="flex flex-1 items-center justify-center">{/* TODO: nav link */}</nav>
         </div>

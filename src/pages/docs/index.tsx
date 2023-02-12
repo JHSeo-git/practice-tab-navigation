@@ -1,7 +1,13 @@
+import { Counter } from '@/components/Counter';
+
 interface DocsIndexPageProps {}
 
 function DocsIndexPage(props: DocsIndexPageProps) {
-  return <div>DocsIndexPage</div>;
+  return (
+    <div>
+      docs page <Counter />
+    </div>
+  );
 }
 
 export default DocsIndexPage;

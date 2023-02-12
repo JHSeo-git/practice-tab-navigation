@@ -1,6 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import * as React from 'react';
+import { Link, useLinkClickHandler, useLocation } from 'react-router-dom';
 
+import { useRouteContext } from '@/context/RouteContext';
 import { cn } from '@/lib/utils';
+import { getElementByPath } from '@/router';
 
 interface NavItem {
   title: string;
@@ -60,6 +63,8 @@ interface SidebarNavItemsProps {
   pathname?: string | null;
 }
 export function SidebarNavItems({ items, pathname }: SidebarNavItemsProps) {
+  const { appendRoute } = useRouteContext();
+
   if (!items || items.length === 0) {
     return null;
   }
@@ -68,7 +73,7 @@ export function SidebarNavItems({ items, pathname }: SidebarNavItemsProps) {
     <div className="grid grid-flow-row auto-rows-max text-sm">
       {items.map((item, index) =>
         item.href ? (
-          <Link
+          <SidebarNavLink
             key={index}
             to={item.href}
             className={cn(
@@ -78,6 +83,23 @@ export function SidebarNavItems({ items, pathname }: SidebarNavItemsProps) {
             )}
             target={item.external ? '_blank' : ''}
             rel={item.external ? 'noreferrer' : ''}
+            onClick={() => {
+              if (!item.href) {
+                return;
+              }
+
+              const element = getElementByPath(item.href);
+
+              if (!element) {
+                return;
+              }
+
+              appendRoute({
+                title: item.title,
+                path: item.href,
+                element,
+              });
+            }}
           >
             {item.title}
             {item.label && (
@@ -85,7 +107,7 @@ export function SidebarNavItems({ items, pathname }: SidebarNavItemsProps) {
                 {item.label}
               </span>
             )}
-          </Link>
+          </SidebarNavLink>
         ) : (
           <span
             key={index}
@@ -98,3 +120,30 @@ export function SidebarNavItems({ items, pathname }: SidebarNavItemsProps) {
     </div>
   );
 }
+
+type SidebarNavLinkProps = React.ComponentPropsWithoutRef<typeof Link>;
+const SidebarNavLink = React.forwardRef<React.ElementRef<typeof Link>, SidebarNavLinkProps>(
+  ({ to, replace = false, state, target, className, onClick, ...props }, ref) => {
+    const handleClick = useLinkClickHandler(to, {
+      replace,
+      state,
+      target,
+    });
+
+    return (
+      <Link
+        {...props}
+        ref={ref}
+        to={to}
+        className={className}
+        onClick={(e) => {
+          onClick?.(e);
+          if (!e.preventDefault) {
+            handleClick(e);
+          }
+        }}
+      />
+    );
+  }
+);
+SidebarNavLink.displayName = Link.displayName;

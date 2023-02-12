@@ -7,7 +7,7 @@ export function Counter() {
 
   return (
     <div className="flex items-center space-x-5 py-2">
-      <span className="text-bold text-lg">{counter.count}</span>
+      <span className="text-lg font-bold">{counter.count}</span>
       <div className="space-x-2">
         <button
           type="button"

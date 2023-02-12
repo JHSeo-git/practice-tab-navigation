@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { matchRoutes, useLocation } from 'react-router-dom';
+import { matchRoutes, useLocation, useNavigate } from 'react-router-dom';
 
 import type { RouteInfo } from '@/router';
-import { notFoundRoute } from '@/router';
 
 interface RouteContextValue {
   routes: RouteInfo[];
   appendRoute: (route: RouteInfo) => void;
   removeRoute: (route: RouteInfo) => void;
   resetRoute: () => void;
-  currentRoute: RouteInfo;
+  currentRoute?: RouteInfo;
 }
 
 const RouteContext = React.createContext<RouteContextValue | null>(null);
@@ -19,12 +18,13 @@ const RouteContextProvider = ({
   limit = 10,
   children,
 }: {
-  initialRoute: RouteInfo;
+  initialRoute?: RouteInfo;
   limit?: number;
   children: React.ReactNode;
 }) => {
-  const [routes, setRoutes] = React.useState<RouteInfo[]>([initialRoute]);
+  const [routes, setRoutes] = React.useState<RouteInfo[]>(initialRoute ? [initialRoute] : []);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const appendRoute = React.useCallback(
     (route: RouteInfo) => {
@@ -42,7 +42,11 @@ const RouteContextProvider = ({
 
   const removeRoute = React.useCallback(
     (route: RouteInfo) => {
-      setRoutes((prevRoutes) => prevRoutes.filter((r) => r !== route));
+      setRoutes((prevRoutes) => {
+        const newRoutes = prevRoutes.filter((r) => r !== route);
+
+        return newRoutes;
+      });
     },
     [setRoutes]
   );
@@ -52,7 +56,7 @@ const RouteContextProvider = ({
   }, [setRoutes]);
 
   const currentRoute = React.useMemo(() => {
-    return matchRoutes(routes, location)?.at(0)?.route ?? notFoundRoute;
+    return matchRoutes(routes, location)?.at(0)?.route;
   }, [routes, location]);
 
   const value = React.useMemo(() => {
@@ -64,6 +68,15 @@ const RouteContextProvider = ({
       currentRoute,
     };
   }, [routes, appendRoute, removeRoute, resetRoute, currentRoute]);
+
+  React.useEffect(() => {
+    if (!currentRoute) {
+      const next = routes.at(-1);
+      if (next) {
+        navigate(next.path, { replace: true });
+      }
+    }
+  }, [currentRoute, navigate]);
 
   return <RouteContext.Provider value={value}>{children}</RouteContext.Provider>;
 };

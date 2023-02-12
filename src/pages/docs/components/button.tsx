@@ -1,11 +1,11 @@
 import { Counter } from '@/components/Counter';
 
-function DocsIndexPage() {
+function ButtonPage() {
   return (
     <div>
-      docs page <Counter />
+      ButtonPage <Counter />
     </div>
   );
 }
 
-export default DocsIndexPage;
+export default ButtonPage;

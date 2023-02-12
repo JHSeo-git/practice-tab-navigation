@@ -1,8 +1,6 @@
 import { Counter } from '@/components/Counter';
 
-interface InstallationPageProps {}
-
-function InstallationPage(props: InstallationPageProps) {
+function InstallationPage() {
   return (
     <div>
       InstallationPage <Counter />

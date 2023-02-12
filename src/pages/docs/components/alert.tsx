@@ -1,11 +1,11 @@
 import { Counter } from '@/components/Counter';
 
-function DocsIndexPage() {
+function AlertPage() {
   return (
     <div>
-      docs page <Counter />
+      AlertPage <Counter />
     </div>
   );
 }
 
-export default DocsIndexPage;
+export default AlertPage;

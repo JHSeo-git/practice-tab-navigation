@@ -1,11 +1,11 @@
 import { Counter } from '@/components/Counter';
 
-function DocsIndexPage() {
+function ColorPage() {
   return (
     <div>
-      docs page <Counter />
+      ColorPage <Counter />
     </div>
   );
 }
 
-export default DocsIndexPage;
+export default ColorPage;

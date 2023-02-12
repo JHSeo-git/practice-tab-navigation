@@ -36,8 +36,29 @@ const navItems: NavItem[] = [
     title: 'Design',
     items: [
       {
-        title: 'Design-System',
+        title: 'Design System',
         href: '/docs/design-system',
+      },
+      {
+        title: 'Color',
+        href: '/docs/color',
+      },
+      {
+        title: 'Typography',
+        href: '/docs/typography',
+      },
+    ],
+  },
+  {
+    title: 'Components',
+    items: [
+      {
+        title: 'Alert',
+        href: '/docs/components/alert',
+      },
+      {
+        title: 'Button',
+        href: '/docs/components/button',
       },
     ],
   },
